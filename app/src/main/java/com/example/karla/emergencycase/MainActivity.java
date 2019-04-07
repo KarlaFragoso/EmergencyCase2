@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Button botonGuardar;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mensaje1 = (TextView) findViewById(R.id.mensaje_id);
         mensaje2 = (TextView) findViewById(R.id.mensaje_id2);
         botonGuardar = (Button) this.findViewById(R.id.btnGuardar);
+
+
 
         botonGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -319,6 +322,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(getApplicationContext(), Activity_Contactos.class);
             startActivity(intent);
 
+        } else if (id == R.id.login){
+            Intent intent = new Intent(getApplicationContext(), Login.class);
+            startActivity(intent);
+        } else if(id == R.id.informacion){
+            Intent intent = new Intent(getApplicationContext(),Activity_Informacion.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

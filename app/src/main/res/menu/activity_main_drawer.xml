@@ -5,9 +5,20 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/login"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Iniciar Sesion" />
+        <item
             android:id="@+id/contactos"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Contactos" />
+            android:title="Contactos"
+            />
+
+        <item
+            android:id="@+id/informacion"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Informacion de la App"
+            />
        
 
     </group>

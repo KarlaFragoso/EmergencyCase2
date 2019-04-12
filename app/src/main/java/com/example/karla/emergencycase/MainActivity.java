@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS}, 1);
                         }
                     } else {
-                        String number = "7752016959";
+                        String number = "7751996577";
                         SmsManager.getDefault().sendTextMessage(number, null, "Este es un Mensaje de Auxilio Estoy en "+"\n"+messageToSend2 + "\n" + messageToSend, null, null);
 
                     }

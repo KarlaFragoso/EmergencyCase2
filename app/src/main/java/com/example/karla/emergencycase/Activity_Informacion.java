@@ -16,7 +16,7 @@ public class Activity_Informacion extends AppCompatActivity {
         WebView view = findViewById(R.id.webView);
         view.getSettings().setJavaScriptEnabled(true); //permite que las paginas funcionen
         view.getSettings().setBuiltInZoomControls(true); // permite el zoom si la pagina no es respons
-        view.loadUrl("http://proyectoec.herokuapp.com/");
+        view.loadUrl("https://karla-fragoso.000webhostapp.com/Emergency_Case/Formulario_inserta_perfiles.php");
 
 
         view.setWebViewClient(new WebViewClient(){

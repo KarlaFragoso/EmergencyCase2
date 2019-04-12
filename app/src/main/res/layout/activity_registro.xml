@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:ems="10"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:ems="10"
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:ems="10"
@@ -65,12 +65,29 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:ems="10"
         android:hint="Edad"
         android:inputType="number" />
+
+    <EditText
+        android:id="@+id/perfilRegistro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:ems="10"
+        android:hint="Escribe La palabra USUARIO"
+        android:inputType="text" />
+
+
+
+
 
     <Button
         android:id="@+id/btnRegistro"

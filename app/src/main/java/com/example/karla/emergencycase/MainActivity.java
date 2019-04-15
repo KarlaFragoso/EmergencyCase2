@@ -40,6 +40,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -95,10 +96,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS}, 1);
                         }
                     } else {
-                        String number = "7751996577";
-                        SmsManager.getDefault().sendTextMessage(number, null, "Este es un Mensaje de Auxilio Estoy en "+"\n"+messageToSend2 + "\n" + messageToSend, null, null);
+
+                            String number = "7751996577";
+                        SmsManager.getDefault().sendTextMessage(number,null, "Este es un Mensaje de Auxilio Estoy en " + "\n" + messageToSend2 + "\n" + messageToSend, null, null);
+
+
 
                     }
+
                     Toast.makeText(getApplicationContext(), "Mensaje Enviado!", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Fallo el envio!", Toast.LENGTH_LONG).show();

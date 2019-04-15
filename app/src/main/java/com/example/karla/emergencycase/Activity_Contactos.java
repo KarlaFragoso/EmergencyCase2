@@ -93,7 +93,7 @@ public class Activity_Contactos extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
                 if(statusCode == 200) {
-                    Toast.makeText(Activity_Contactos.this, "Cliente agregado correctamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Activity_Contactos.this, "Contacto agregado ", Toast.LENGTH_SHORT).show();
                     mNombre.setText("");
                     mNumero.setText("");
                 }

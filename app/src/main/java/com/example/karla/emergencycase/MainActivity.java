@@ -12,8 +12,10 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -29,7 +31,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +46,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -53,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView mensaje1;
     TextView mensaje2;
     private Button botonGuardar;
+    EditText mNumero;
+     String GOOGLE_MAP_URL = "https://maps.google.com/maps?q=";
 
 
 
@@ -63,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mensaje1 = (TextView) findViewById(R.id.mensaje_id);
         mensaje2 = (TextView) findViewById(R.id.mensaje_id2);
         botonGuardar = (Button) this.findViewById(R.id.btnGuardar);
-
 
 
         botonGuardar.setOnClickListener(new View.OnClickListener() {
@@ -78,9 +85,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             locationStart();
         }
 
+        //nuevo codigo
+
+
+
 
         //enviar mensaje
         botonGuardar.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
 
@@ -89,6 +101,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     TextView di = (TextView) findViewById(R.id.mensaje_id2);
                     String messageToSend = co.getText().toString();
                     String messageToSend2 = di.getText().toString();
+                    //nuevo codigo
+                   // mNumero = findViewById(R.id.numeroId);
+                    //String number = mNumero.getText().toString();
+
+
+
                     if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
                         if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.SEND_SMS)) {
                             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS}, 1);
@@ -96,10 +114,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS}, 1);
                         }
                     } else {
+                     //   final ArrayList<Contactos> lista = new ArrayList<Contactos>();
+                       //     JSONArray jsonArreglo = new JSONArray(this);
 
-                            String number = "7751996577";
-                        SmsManager.getDefault().sendTextMessage(number,null, "Este es un Mensaje de Auxilio Estoy en " + "\n" + messageToSend2 + "\n" + messageToSend, null, null);
+                        //    for(int i=0; i<jsonArreglo.length();i++){
+                          //      Contactos c = new Contactos();
+                            //    SmsManager sms = SmsManager.getDefault();
+                              //  c.setTelefono(jsonArreglo.getJSONObject(i).getString("telefono"));
+                               // lista.add(c);
+                               // sms.sendTextMessage(
+                                 //       jsonArreglo.getJSONObject(i).getTelefono,  null, "https://www.google.com.pe/maps?q=loc:"+  "\n" + "Ayuda!!, estoy en: " + "\n" + messageToSend2  ,null, null);
 
+                          //  }
+
+                           String number = "7752016959";
+                            SmsManager.getDefault().sendTextMessage(number,
+                                    null, "https://www.google.com.pe/maps?q=loc:"+  "\n" + "Ayuda!!, estoy en: " + "\n" + messageToSend2  ,
+                                    null, null);
 
 
                     }
@@ -109,9 +140,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Toast.makeText(getApplicationContext(), "Fallo el envio!", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
-
-            }
-        });
+            } //catch (JSONException e) {
+                //    e.printStackTrace();
+                //}
+            });
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -132,6 +164,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
     }//
 
     private boolean insertar() {
@@ -339,5 +373,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 }

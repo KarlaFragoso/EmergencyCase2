@@ -11,12 +11,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -33,7 +36,8 @@ public class Activity_Contactos extends AppCompatActivity {
     ListView lvDatos;
     AsyncHttpClient cliente;
     static  final int PICK_CONTACT_REQUEST=1;
-
+    TextView di = (TextView) findViewById(R.id.mensaje_id2);
+    String messageToSend2 = di.getText().toString();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +111,7 @@ public class Activity_Contactos extends AppCompatActivity {
 
     }
 
-    private void obtenerClientes(){
+    public void obtenerClientes(){
         String url ="https://karla-fragoso.000webhostapp.com/obtenerDatos.php";
         cliente.post(url, new AsyncHttpResponseHandler() {
             @Override
@@ -131,12 +135,17 @@ public class Activity_Contactos extends AppCompatActivity {
         final ArrayList<Contactos> lista = new ArrayList<Contactos>();
         try {
             JSONArray jsonArreglo = new JSONArray(respuesta);
+        //    Log.e("arreglo",jsonArreglo.toString());
             for(int i=0; i<jsonArreglo.length();i++){
                 Contactos c = new Contactos();
                 c.setId_contacto(jsonArreglo.getJSONObject(i).getInt("id_contacto"));
                 c.setNombre(jsonArreglo.getJSONObject(i).getString("nombre"));
                 c.setTelefono(jsonArreglo.getJSONObject(i).getString("telefono"));
                 lista.add(c);
+               // aqui
+               // SmsManager.getDefault().sendTextMessage((String) jsonArreglo.get(i),
+                 //       null, "https://www.google.com.pe/maps?q=loc:"+  "\n" + "Ayuda!!, estoy en: " + "\n" + messageToSend2  ,
+                   //     null, null);
             }
             ArrayAdapter<Contactos> a = new ArrayAdapter(this,android.R.layout.simple_list_item_1,lista);
             lvDatos.setAdapter(a);

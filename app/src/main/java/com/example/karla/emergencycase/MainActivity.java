@@ -38,6 +38,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -54,6 +57,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import cz.msebera.android.httpclient.Header;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView mensaje1;
@@ -61,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Button botonGuardar;
     EditText mNumero;
      String GOOGLE_MAP_URL = "https://maps.google.com/maps?q=";
+    String respuesta = "https://karla-fragoso.000webhostapp.com/obtenerDatos.php";
+    AsyncHttpClient cliente;
 
 
 
@@ -71,6 +78,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mensaje1 = (TextView) findViewById(R.id.mensaje_id);
         mensaje2 = (TextView) findViewById(R.id.mensaje_id2);
         botonGuardar = (Button) this.findViewById(R.id.btnGuardar);
+
+
+
 
 
         botonGuardar.setOnClickListener(new View.OnClickListener() {
@@ -114,31 +124,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS}, 1);
                         }
                     } else {
-                     //   final ArrayList<Contactos> lista = new ArrayList<Contactos>();
-                       //     JSONArray jsonArreglo = new JSONArray(this);
 
-                        //    for(int i=0; i<jsonArreglo.length();i++){
-                          //      Contactos c = new Contactos();
-                            //    SmsManager sms = SmsManager.getDefault();
-                              //  c.setTelefono(jsonArreglo.getJSONObject(i).getString("telefono"));
-                               // lista.add(c);
-                               // sms.sendTextMessage(
-                                 //       jsonArreglo.getJSONObject(i).getTelefono,  null, "https://www.google.com.pe/maps?q=loc:"+  "\n" + "Ayuda!!, estoy en: " + "\n" + messageToSend2  ,null, null);
+                      //  final ArrayList<Contactos> lista = new ArrayList<Contactos>();
+                       // obtenerClientes();//extraer contactos del webservice
+                        //listarClientes(respuesta);//agrega a lista los contactos del webservice
+                        //JSONArray jsonArreglo = new JSONArray(respuesta);
+                        //listarClientes(new String (respuesta));
 
-                          //  }
+                          //      Log.e("json",jsonArreglo.toString());
+
+                          //  for(int i=0; i<jsonArreglo.length();i++){
+                            //   Contactos c = new Contactos();
+                              // SmsManager sms = SmsManager.getDefault();
+
+                                //c.getTelefono();
+
+                         //       lista.add(c);
+                               //sms.sendTextMessage(c.getTelefono(),  null, "https://www.google.com.pe/maps?q=loc:"+  "\n" + "Ayuda!!, estoy en: " + "\n" + messageToSend2  ,null, null);
+
+                            //}
 
                            String number = "7752016959";
                             SmsManager.getDefault().sendTextMessage(number,
                                     null, "https://www.google.com.pe/maps?q=loc:"+  "\n" + "Ayuda!!, estoy en: " + "\n" + messageToSend2  ,
                                     null, null);
 
-
                     }
 
                     Toast.makeText(getApplicationContext(), "Mensaje Enviado!", Toast.LENGTH_LONG).show();
+
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Fallo el envio!", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
+
                 }
             } //catch (JSONException e) {
                 //    e.printStackTrace();
@@ -167,6 +185,48 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     }//
+
+//codigo adicional
+    public void obtenerClientes(){
+        String url ="https://karla-fragoso.000webhostapp.com/obtenerDatos.php";
+        cliente.post(url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if(statusCode == 200){
+                    listarClientes(new String (responseBody));
+                }
+
+
+            }
+
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+    }
+
+    public void listarClientes(String respuesta) {
+        final ArrayList<Contactos> lista = new ArrayList<Contactos>();
+        try {
+            JSONArray jsonArreglo = new JSONArray(respuesta);
+          //  Log.e("arreglo2", jsonArreglo.toString());
+            for (int i = 0; i < jsonArreglo.length(); i++) {
+                Contactos c = new Contactos();
+                c.setId_contacto(jsonArreglo.getJSONObject(i).getInt("id_contacto"));
+                c.setNombre(jsonArreglo.getJSONObject(i).getString("nombre"));
+                c.setTelefono(jsonArreglo.getJSONObject(i).getString("telefono"));
+                lista.add(c);
+                Log.e("LISTA",lista.toString());
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+
+   //cdigoAd
 
     private boolean insertar() {
         HttpClient httpClient;
